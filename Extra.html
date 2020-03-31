@@ -75,11 +75,11 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoidmlja3lqMjAiLCJhIjoiY2s2cmU2a2Z6MDU3OTNkbGExc
 
 var map = new mapboxgl.Map({
   container: 'map', // container element id
-  style: 'mapbox://styles/vickyj20/ck8bz3l6y2euy1iqqhr6bn4h6',
+  style: 'mapbox://styles/vickyj20/ck8f7jpsm0uo41is3701cjy1m',
   center: [34.0085, 8.7832], // initial map center in [lon, lat]
   zoom: 2
 });
-var year = [
+var pop_year = [
 '1895',
 '1929',
 '1948',
@@ -97,15 +97,15 @@ var year = [
 ];
 	
 function filterBy(year) {
-var filters = ['==', 'year', year];
-map.setFilter('rhino_pop', filters)
+var filters = ['==', 'pop_year', year];
+map.setFilter('pop_year', filters)
  
 // Set the label to the month
 document.getElementById('year').textContent = year[year];
 }
 	map.on('load', function() {
         map.addSource('1895', {
-            type: 'geojson',
+            type: 'vector',
             url: 'vickyj20.3t6v8yli'
         });
         map.addLayer({
@@ -113,7 +113,7 @@ document.getElementById('year').textContent = year[year];
         });
 	    
 	map.addSource('1929', {
-            type: 'geojson',
+            type: 'vector',
             url: 'vickyj20.3m0xntl4'
         });
         map.addLayer({
@@ -121,7 +121,7 @@ document.getElementById('year').textContent = year[year];
         });
 
         map.addSource('1948', {
-            type: 'geojson',
+            type: 'vector',
             url: 'vickyj20.4f2e1g29'
         });
         map.addLayer({
@@ -129,7 +129,7 @@ document.getElementById('year').textContent = year[year];
         });
 	    
 	map.addSource('1968', {
-            type: 'geojson',
+            type: 'vector',
             url: 'vickyj20.6z393kf6'
         });
         map.addLayer({
@@ -137,70 +137,70 @@ document.getElementById('year').textContent = year[year];
         });
 	
 	map.addSource('1984', {
-            type: 'geojson',
+            type: 'vector',
             url: 'vickyj20.46olq4yd'
         });
         map.addLayer({
             'source-layer': '1984'
         });
 	map.addSource('1987', {
-            type: 'geojson',
+            type: 'vector',
             url: 'vickyj20.atou2ixg
         });
         map.addLayer({
             'source-layer': '1987'
         });
 	map.addSource('1991', {
-            type: 'geojson',
+            type: 'vector',
             url: 'vickyj20.ctqyr4n5'
         });
         map.addLayer({
             'source-layer': '1991'
         });
 	map.addSource('1992', {
-            type: 'geojson',
+            type: 'vector',
             url: 'vickyj20.8csp8o0i'
         });
         map.addLayer({
             'source-layer': '1992'
         });
 	map.addSource('1993', {
-            type: 'geojson',
+            type: 'vector',
             url: 'vickyj20.a8495uu3'
         });
         map.addLayer({
             'source-layer': '1993'
         });
 	map.addSource('1995', {
-            type: 'geojson',
+            type: 'vector',
             url: 'vickyj20.32i840d9'
         });
         map.addLayer({
             'source-layer': '1995'
         });
 	map.addSource('1997', {
-            type: 'geojson',
+            type: 'vector',
             url: 'vickyj20.855b3s6u'
         });
         map.addLayer({
             'source-layer': '1997'
         });
 	map.addSource('2005', {
-            type: 'geojson',
+            type: 'vector',
             url: 'vickyj20.0d2dguvt'
         });
         map.addLayer({
             'source-layer': '2005'
         });
 	map.addSource('2010', {
-            type: 'geojson',
+            type: 'vector',
             url: 'vickyj20.b2t2hxmn'
         });
         map.addLayer({
             'source-layer': '2010'
         });
 	map.addSource('2017', {
-		type: 'geojson',
+		type: 'vector',
 		url: 'vickyj20.2wtm73iw'
 	});
 	map.addLayer({
@@ -209,12 +209,9 @@ document.getElementById('year').textContent = year[year];
 		
 	filterBy(0);
  
-document
-.getElementById('slider')
-.addEventListener('input', function(e) {
-var year = parseInt(e.target.value, 10);
-filterBy(year);
-	});
+document.getElementById('slider').addEventListener('input', function(e) {
+var year = parseInt(e.target.value);
+map.setFilter('pop_year', ['==', ['number', ['get', 'pop_year']], 1895]);
 }
 );
 });
