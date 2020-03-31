@@ -59,8 +59,8 @@ cursor: ew-resize;
     <div class="map-overlay-inner">
       <h1>The Rise and Fall of the Southern White Rhino Population Over Time</h1>
       <p>Data: <a href='https://ourworldindata.org/grapher/southern-white-rhinos?tab=map&fbclid=IwAR3P4vUHqefQmDI0uyHKCECrRDAgRuOQHRRGsP6OD6U3BZwunGgvbEo1g48'>Southern White Rhino Population</a> in Africa, 1895-2017</p>
-     <label id="Year"></label>
-     <input id="slider" type="range" min="1895" max="2017" step="5" value="0" />
+	    <h2>Year<label id="pop_year"></label></h2>
+     	<input id="slider" type="range" min="1895" max="2017" step="5" value="1895" />
   </div>
   <div class="map-overlay-inner">
     <div id="legend" class="legend">
@@ -79,34 +79,11 @@ var map = new mapboxgl.Map({
   center: [34.0085, 8.7832], // initial map center in [lon, lat]
   zoom: 2
 });
-var pop_year = [
-'1895',
-'1929',
-'1948',
-'1968',
-'1984',
-'1987',
-'1991',
-'1992',
-'1993',
-'1995',
-'1997',
-'2005',
-'2010',
-'2017'
-];
-	
-function filterBy(year) {
-var filters = ['==', 'pop_year', year];
-map.setFilter('pop_year', filters)
  
-// Set the label to the month
-document.getElementById('year').textContent = year[year];
-}
-	map.on('load', function() {
+map.on('load', function() {
         map.addSource('1895', {
             type: 'vector',
-            url: 'vickyj20.3t6v8yli'
+            url: 'vickyj20.dhu91dsg'
         });
         map.addLayer({
             'source-layer': '1895'
@@ -114,7 +91,7 @@ document.getElementById('year').textContent = year[year];
 	    
 	map.addSource('1929', {
             type: 'vector',
-            url: 'vickyj20.3m0xntl4'
+            url: 'vickyj20.3felnp0a'
         });
         map.addLayer({
             'source-layer': '1929'
@@ -122,7 +99,7 @@ document.getElementById('year').textContent = year[year];
 
         map.addSource('1948', {
             type: 'vector',
-            url: 'vickyj20.4f2e1g29'
+            url: 'vickyj20.1ocx6n7c'
         });
         map.addLayer({
             'source-layer': '1948'
@@ -130,7 +107,7 @@ document.getElementById('year').textContent = year[year];
 	    
 	map.addSource('1968', {
             type: 'vector',
-            url: 'vickyj20.6z393kf6'
+            url: 'vickyj20.35zzxrkc'
         });
         map.addLayer({
             'source-layer': '1968'
@@ -138,83 +115,92 @@ document.getElementById('year').textContent = year[year];
 	
 	map.addSource('1984', {
             type: 'vector',
-            url: 'vickyj20.46olq4yd'
+            url: 'vickyj20.5enjacw0'
         });
         map.addLayer({
             'source-layer': '1984'
         });
 	map.addSource('1987', {
             type: 'vector',
-            url: 'vickyj20.atou2ixg
+            url: 'vickyj20.2h0d8ns5'
         });
         map.addLayer({
             'source-layer': '1987'
         });
 	map.addSource('1991', {
             type: 'vector',
-            url: 'vickyj20.ctqyr4n5'
+            url: 'vickyj20.9paigm0t'
         });
         map.addLayer({
             'source-layer': '1991'
         });
 	map.addSource('1992', {
             type: 'vector',
-            url: 'vickyj20.8csp8o0i'
+            url: 'vickyj20.0a0205bp'
         });
         map.addLayer({
             'source-layer': '1992'
         });
 	map.addSource('1993', {
             type: 'vector',
-            url: 'vickyj20.a8495uu3'
+            url: 'vickyj20.aeg0c8u1'
         });
         map.addLayer({
             'source-layer': '1993'
         });
 	map.addSource('1995', {
             type: 'vector',
-            url: 'vickyj20.32i840d9'
+            url: 'vickyj20.8kjhrmeq'
         });
         map.addLayer({
             'source-layer': '1995'
         });
 	map.addSource('1997', {
             type: 'vector',
-            url: 'vickyj20.855b3s6u'
+            url: 'vickyj20.741whe7f'
         });
         map.addLayer({
             'source-layer': '1997'
         });
 	map.addSource('2005', {
             type: 'vector',
-            url: 'vickyj20.0d2dguvt'
+            url: 'vickyj20.8uad4cts'
         });
         map.addLayer({
             'source-layer': '2005'
         });
 	map.addSource('2010', {
             type: 'vector',
-            url: 'vickyj20.b2t2hxmn'
+            url: 'vickyj20.bcog9pnd'
         });
         map.addLayer({
             'source-layer': '2010'
         });
+	
 	map.addSource('2017', {
 		type: 'vector',
-		url: 'vickyj20.2wtm73iw'
+		url: 'vickyj20.cbkirtrm'
 	});
 	map.addLayer({
-		'source-layer': '2017'
-				});
-		
-	filterBy(0);
- 
+		'source-layer': '2017'   
+	});
+
+var sliderID = ['1895','1929','1948','1968','1984','1987','1991','1992','1993','1995','1997','2005','2010','2017'];
+// if those layers exist, add a toggle button 
+    for (var i = 0; i < sliderID.length; i++) {
+        var id = sliderID[i];
+	    
 document.getElementById('slider').addEventListener('input', function(e) {
-var year = parseInt(e.target.value);
-map.setFilter('pop_year', ['==', ['number', ['get', 'pop_year']], 1895]);
-}
-);
-});
+var pop_year = (e.target.value);
+		
+            if (pop_year === 'sliderID') {
+                map.setLayoutProperty(sliderID[i], 'visibility', 'visible');
+            } else {
+                map.setLayoutProperty(sliderID[i], 'visibility', 'none');
+            }
+        };
+
+	});
 	
     </script>
   </body>
