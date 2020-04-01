@@ -184,15 +184,14 @@ map.on('load', function() {
 	map.addLayer({
 		'source-layer': '2017'   
 	});
+	
+document.getElementById('slider').addEventListener('input', function(e) {
+var pop_year = (e.target.value);
 
 var yearID = ['1895','1929','1948','1968','1984','1987','1991','1992','1993','1995','1997','2005','2010','2017'];
 // if those layers exist, add a toggle button 
     for (var i = 0; i < yearID.length; i++) {
         var id = yearID[i];
-	    
-document.getElementById('slider').addEventListener('input', function(e) {
-var pop_year = (e.target.value);
-		
             if (pop_year === yearID[i]) {
                 map.setLayoutProperty(yearID[i], 'visibility', 'visible');
             } else {
