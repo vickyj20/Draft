@@ -1,118 +1,73 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8" />
-	<!--This is for the title of the tab -->
-<title>Southern White Rhinos</title>
-<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-<script src="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>
-<link href="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css" rel="stylesheet" />
+  <head>
+    <meta charset="utf-8" />
+    <title>Southern White Rhinos</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
 
-<div id='map'></div>
-	<!--Creating textbox for the title and stating what thee title will be -->
-<div class='map-overlay' id='features'><h2>The Rise and Fall of Southern White Rhinos in Africa.</h2><div id='pd'><h3>From 1895-2017</h3></div></div>
-	<!--Creating a textbox for my legend -->
-<div class='map-overlay2' id='legend'></div>
-	<!--Creating a navigation menu -->
-<nav id="menu"></nav>
-	<!--creating a title for the nevigation menu -->
-<div class='title-overlay' ><p style="color:#ffffff"> &nbsp;&nbsp;TOGGLE LAYERS<p></div>
-</head>
-	<!--Determining the heading stylings for the text on the map -->
-<style>
-	body { margin: 0; padding: 0; }
-h2,
-h3 {
-  margin: 10px;
-  font-size: 1em;
-}
-
-h3 {
-  font-size: 0.9em;
-}
-
- p {
-  font-size: 0.90em;
-  margin: 10px;
-  text-align: left;
-}
-	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
-</style>
-<body>
-	<!-- Determining the specifications for the menu navigation and features, the title textbox and features, the legeend text box and features, and the toggle layer title -->
-<style>
-    #menu {
-        background: #fff;
-        position: absolute;
-        z-index: 1;
-        top: 200px;
-        right: 40px;
-        border-radius: 3px;
-        width: 150px;
-        font-family: 'Open Sans', sans-serif;
-    }
-    #menu a {
-        font-size: 13px;
-        color: #404040;
-        display: block;
+    <style>
+      body {
         margin: 0;
         padding: 0;
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <style>
+      .map-overlay {
+        font: 12px/20px "Helvetica Neue", Arial, Helvetica, sans-serif;
+        position: absolute;
+        width: 25%;
+        top: 0;
+        left: 0;
         padding: 10px;
-        text-decoration: none;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-        text-align: center;
-    }
+      }
 
-    #menu a:last-child {
-        border: none;
-    }
+      .map-overlay .map-overlay-inner {
+        background-color: #fff;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        border-radius: 3px;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
 
-    #menu a:hover {
-        background-color: #f8f8f8;
-        color: #404040;
-    }
+      .map-overlay h2 {
+        line-height: 24px;
+        display: block;
+        margin: 0 0 10px;
+      }
 
-    #menu a.active {
-        background-color: #414141;
-        color: #ffffff;
-    }
-
-    #menu a.active:hover {
-        background: #3074a4;
-    }
-.map-overlay {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background: rgba(255, 255, 255, 0.8);
-  margin-right: 600px;
-  font-family: Arial, sans-serif;
-  overflow: auto;
-  border-radius: 3px;
-}
-#features {
-  top: 0;
-  height: 120px;
-  margin-top: 25px;
-  width: 650px;
-}
-.map-overlay2 {
+  .map-overlay2 {
   position: absolute;
   bottom: 20px;
   right: 0;
-  background: rgba(255, 255, 255, 0.8);
-  margin-right: 1000px;
+  background: #fff;
+  margin-right: 15px;
   font-family: Arial, sans-serif;
   overflow: auto;
   border-radius: 3px;
 }
 #legend {
   padding: 10px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0);
   line-height: 18px;
-  height: 190px;
+  height: 370px;
   margin-bottom: 20px;
-  width: 220px;
+  width: 120px;
 }
 .legend-key {
   display: inline-block;
@@ -121,174 +76,167 @@ h3 {
   height: 9px;
   margin-right: 5px;
 }
-		.title-overlay {
-      background-color: #414141;
-			position: absolute;
-			z-index: 0.5;
-			top: 160px;
-			right: 40px;
-			width: 150px;
-			font-family: 'Open Sans', sans-serif;
-			font-color: #ffffff
-		}
-		#title {
-			line-height: 0px;
-			width: 129px;
-			right: 0px;
-			font-size: 13px;
-			font-color: #ffffff
-		}
 
-</style>
 
-<script>
+    </style>
 
-// how the map gets displayed on the interface
-mapboxgl.accessToken = 'pk.eyJ1Ijoidmlja3lqMjAiLCJhIjoiY2s2cmU2a2Z6MDU3OTNkbGExcTBhanlsNCJ9.AnDT5Fbe1lZxtUukEMhabA';
+    <div id="map"></div>
 
-var map = new mapboxgl.Map({
-  container: 'map', // container element id
-  style: 'mapbox://styles/vickyj20/ck8f7jpsm0uo41is3701cjy1m',
-  center: [34.0085, 8.7832], // initial map center in [lon, lat]
-  zoom: 2
-});
-	// the code for pinpointing the location of the map user on the map
+    <div class="map-overlay top">
+      <div class="map-overlay-inner">
+        <h1>
+          The Rise and Fall of the Southern White Rhino Population Over Time
+        </h1>
+        <p>
+          Data:
+          <a
+            href="https://ourworldindata.org/grapher/southern-white-rhinos?tab=map&fbclid=IwAR3P4vUHqefQmDI0uyHKCECrRDAgRuOQHRRGsP6OD6U3BZwunGgvbEo1g48"
+            >Southern White Rhino Population</a
+          >
+          in Africa, 1895-2017
+        </p>
+        <h2>Year :<label id="pop_year"></label></h2>
+        <input
+          id="slider"
+          type="range"
+          min="1"
+          max="14"
+          step="1"
+          value="1"
+        />
+      </div>
+    </div>
 
-	// code for allowing the features to be clicked on
+      <div class="map-overlay2">
+        <div id="legend" class="legend">
+          <div class="bar"></div>
+        </div>
+      </div>
 
-		// Add zoom and rotation controls to the map.
-		map.addControl(new mapboxgl.NavigationControl());
-// adding my source layers so that it can be used in the toggle layer function below
-map.on('load', function() {
-        map.addSource('1895', {
-            type: 'vector',
-            url: 'vickyj20.dhu91dsg'
-        });
+    <script>
+      mapboxgl.accessToken = 'pk.eyJ1Ijoidmlja3lqMjAiLCJhIjoiY2s2cmU2a2Z6MDU3OTNkbGExcTBhanlsNCJ9.AnDT5Fbe1lZxtUukEMhabA';
 
-	map.addSource('1929', {
-            type: 'vector',
-            url: 'vickyj20.3felnp0a'
-        });
+      var map = new mapboxgl.Map({
+        container: 'map', // container element id
+        style: 'mapbox://styles/vickyj20/ck8f7jpsm0uo41is3701cjy1m',
+        center: [20.0085, 5.7832], // initial map center in [lon, lat]
+        zoom: 2.2
+      });
+
+      map.on('load', function() {
+              map.addSource('1895', {
+                  type: 'vector',
+                  url: 'vickyj20.dhu91dsg'
+              });
+
+      	map.addSource('1929', {
+                  type: 'vector',
+                  url: 'vickyj20.3felnp0a'
+              });
 
         map.addSource('1948', {
-            type: 'vector',
-            url: 'vickyj20.1ocx6n7c'
-        });
+                  type: 'vector',
+                  url: 'vickyj20.1ocx6n7c'
+              });
 
 
-	map.addSource('1968', {
-            type: 'vector',
-            url: 'vickyj20.35zzxrkc'
-        });
+      	map.addSource('1968', {
+                  type: 'vector',
+                  url: 'vickyj20.35zzxrkc'
+              });
 
 
-	map.addSource('1984', {
-            type: 'vector',
-            url: 'vickyj20.5enjacw0'
-        });
+      	map.addSource('1984', {
+                  type: 'vector',
+                  url: 'vickyj20.5enjacw0'
+              });
 
 
-	map.addSource('1987', {
-            type: 'vector',
-            url: 'vickyj20.2h0d8ns5'
-        });
+      	map.addSource('1987', {
+                  type: 'vector',
+                  url: 'vickyj20.2h0d8ns5'
+              });
+
+      	map.addSource('1991', {
+                  type: 'vector',
+                  url: 'vickyj20.9paigm0t'
+              });
+
+      	map.addSource('1992', {
+                  type: 'vector',
+                  url: 'vickyj20.0a0205bp'
+              });
+
+      	map.addSource('1993', {
+                  type: 'vector',
+                  url: 'vickyj20.aeg0c8u1'
+              });
+
+      	map.addSource('1995', {
+                  type: 'vector',
+                  url: 'vickyj20.8kjhrmeq'
+              });
 
 
-	map.addSource('1991', {
-            type: 'vector',
-            url: 'vickyj20.9paigm0t'
-        });
+      	map.addSource('1997', {
+                  type: 'vector',
+                  url: 'vickyj20.741whe7f'
+              });
+
+      	map.addSource('2005', {
+                  type: 'vector',
+                  url: 'vickyj20.8uad4cts'
+              });
 
 
-	map.addSource('1992', {
-            type: 'vector',
-            url: 'vickyj20.0a0205bp'
-        });
+      	map.addSource('2010', {
+                  type: 'vector',
+                  url: 'vickyj20.bcog9pnd'
+              });
 
 
-	map.addSource('1993', {
-            type: 'vector',
-            url: 'vickyj20.aeg0c8u1'
-        });
-
-	map.addSource('1995', {
-            type: 'vector',
-            url: 'vickyj20.8kjhrmeq'
-        });
+      	map.addSource('2017', {
+      		type: 'vector',
+      		url: 'vickyj20.cbkirtrm'
+      	});
 
 
-	map.addSource('1997', {
-            type: 'vector',
-            url: 'vickyj20.741whe7f'
-        });
+        var layers = ['<h3>Population</h3>', '0','1-20', '21-40', '41-60', '61-80', '81-100', '101-140', '141-200','201-250','251-300','301-360','361-400','400-600','600-1000','1001-3000','3001-5000','5001-10000','10001+'];
+        var colors = ['', '#b5b5b5', '#FFE8DD', '#FFD9C6', '#FFCDB5', '#FFB997', '#FFB184', '#FFA073','#FF8F64','#FF7E50','#FF7332','#FF641E','#FF5B0D','#F24F00','#D54500','#BB3D00','#842B00','#571B00','#351100'];
 
+        				for (i = 0; i < layers.length; i++) {
+        				  var layer = layers[i];
+        				  var color = colors[i];
+        				  var item = document.createElement('div');
+        				  var key = document.createElement('span');
+        				  key.className = 'legend-key';
+        				  key.style.backgroundColor = color;
 
-	map.addSource('2005', {
-            type: 'vector',
-            url: 'vickyj20.8uad4cts'
-        });
+        				  var value = document.createElement('span');
+        				  value.innerHTML = layer;
+        				  item.appendChild(key);
+        				  item.appendChild(value);
+        				  legend.appendChild(item);
+        				}
+        		});
 
-	map.addSource('2010', {
-            type: 'vector',
-            url: 'vickyj20.bcog9pnd'
-        });
+      document.getElementById('slider').addEventListener('input', function(e) {
+        var pop_year = (e.target.value);
 
-
-	map.addSource('2017', {
-		type: 'vector',
-		url: 'vickyj20.cbkirtrm'
-	});
-
-	    // determining what I want to put on my legend and the colours
-	var layers = ['<p>Population, 1895-2017 ($)</p>', '0','1-20', '21-40', '41-60', '61-80', '81-100', '101-140', '141-200','201-250','251-300','301-360','361-400','400-600','600-1000','1001-3000','3001-5000','5001-10000','10001+'];
-        var colors = ['#b5b5b5', '#FFE8DD', '#FFD9C6', '#FFCDB5', '#FFB997', '#FFB184', '#FFA073','#FF8F64','#FF7E50','#FF7332','#FF641E','#FF5B0D','#F24F00','#D54500','#BB3D00','#842B00','#571B00','#351100'];
-
-				for (i = 0; i < layers.length; i++) {
-				  var layer = layers[i];
-				  var color = colors[i];
-				  var item = document.createElement('div');
-				  var key = document.createElement('span');
-				  key.className = 'legend-key';
-				  key.style.backgroundColor = color;
-
-				  var value = document.createElement('span');
-				  value.innerHTML = layer;
-				  item.appendChild(key);
-				  item.appendChild(value);
-				  legend.appendChild(item);
-				}
-		});
-// using the source layer ids for my toggle layeer function
-    var toggleableLayerIds = ['1895','1929','1948','1968','1984','1987','1991','1992','1993','1995','1997','2005','2010','2017'];
-// if those layers exist, add a toggle button
-    for (var i = 0; i < toggleableLayerIds.length; i++) {
-        var id = toggleableLayerIds[i];
-
-        var link = document.createElement('a');
-        link.href = '#';
-        link.className = 'active';
-        link.textContent = id;
-
-        link.onclick = function(e) {
-            var clickedLayer = this.textContent;
-            e.preventDefault();
-            e.stopPropagation();
-// determining the clicking operations of the toggle layers
-            var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-
-            if (visibility === 'visible') {
-                map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-                this.className = '';
-            } else {
-                this.className = 'active';
-                map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-            }
-        };
-
-        var layers = document.getElementById('menu');
-        layers.appendChild(link);
-    }
-</script>
-
-</body>
+        var yearID = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14'];
+        // if those layers exist, the slider will operate and call the mapbox layer to appear
+        for (var i = 0; i < yearID.length; i++) {
+            var id = yearID[i];
+                if (pop_year === yearID[i]) {
+                    map.setLayoutProperty(yearID[i], 'visibility', 'visible');
+                } else {
+                    map.setLayoutProperty(yearID[i], 'visibility', 'none');
+                }
+        }
+ // update text in the UI
+ var year = yearID % 1 ? yearID % 1 : 2;
+ document.getElementById('pop_year').innerText = year;
+      });
+    </script>
+  </body>
 </html>
