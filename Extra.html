@@ -193,7 +193,7 @@ var yearID = ['1895','1929','1948','1968','1984','1987','1991','1992','1993','19
 document.getElementById('slider').addEventListener('input', function(e) {
 var pop_year = (e.target.value);
 		
-            if (pop_year === 'yearID[i]') {
+            if (pop_year === yearID[i]) {
                 map.setLayoutProperty(yearID[i], 'visibility', 'visible');
             } else {
                 map.setLayoutProperty(yearID[i], 'visibility', 'none');
